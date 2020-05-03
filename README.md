@@ -10,7 +10,10 @@ This repo is a playground for (2). The first option, expose the entire graph and
 
 ## Branches with PoC solutions
 ### Overview
-These branches represent PoC solutions of the type expressed by (2).
+These branches represent PoC solutions of the type expressed by (2). For them to be successful, they need to do two things:
+
+1) Remove the dummy secrets/private node, called `secrets`.
+2) Remove private mutations, `createShipment` and `deleteShipment`.
 
 ### Context
 Apollo's gateway can pull registered schemas for federated services and then combine those schemas together to make one graph. We're going to register a public api schema that's only has those fields/nodes we want.
@@ -19,10 +22,8 @@ To remove nodes, we'll  deploy only the set of federated services necessary for 
 
 To block out fields we don't want, see the branches below and their short descriptions.
 
-#### Filter AST for private nodes
-Have a list of fields that shouldn't be exposed in the public api. Use that list to modify the generated AST, removing any private-only document nodes.
-
-`poc/modifying-ast-for-sdl`
+#### Branch: poc/modifying-ast-for-sdl
+This branch filters out private document nodes from the generated AST, which means that the SDL won't have them when we push them to the registry. The big idea is to have a list of fields that shouldn't be exposed in the public api. We then use that list to modify the generated AST, removing any private-only document nodes.
 
 When running `yarn watch-external`, the shipments node no longer shows `createShipment` or `deleteShipment`, and the secrets node isn't started at all, so it's not included in the completed graph. When running `yarn watch-internal`, both the secrets node and the two mutations are usable.
 
