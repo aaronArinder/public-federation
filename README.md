@@ -27,7 +27,7 @@ Have a list of fields that shouldn't be exposed in the public api. Use that list
 When running `yarn watch-external`, the shipments node no longer shows `createShipment` or `deleteShipment`, and the secrets node isn't started at all, so it's not included in the completed graph. When running `yarn watch-internal`, both the secrets node and the two mutations are usable.
 
 
-## Commands
+## Commands and queries
 ### Start the federated services
 To serve the full graph:
 ```
@@ -37,5 +37,16 @@ yarn watch-internal
 To serve only those services and fields that should be availble in the public api:
 ```
 yarn watch-external
+```
+
+### Confirm SDL for a federated service
+When we register a schema, apollo's cli tool runs the following query to figure out what, exactly, is in each federated service's schema. So, if this query returns only those fields we want in a federated service, so will the registered schema.
+
+```
+query getFederationInfo {
+    _service {
+        sdl
+    }
+}
 ```
 
