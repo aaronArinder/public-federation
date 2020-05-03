@@ -8,7 +8,7 @@ const typeDefs = gql`
     }
 
     extend type Mutation {
-        createShipsment(askId: String): Shipment
+        createShipment(askId: String): Shipment
         deleteShipment(askId: String): Shipment
     }
 
