@@ -19,3 +19,10 @@ To serve only those services and fields that should be availble in the public ap
 yarn watch-external
 ```
 
+### Branches
+#### Directly resolve SDL
+This adds a query to the shipments service that removes its mutations. It's meant as a poc for intercepting and changing the query that apollo runs when pushing a federated service's schema to its registry. This means that the gateway wouldn't know about those fields we don't want included. This is an incredibly clubfooted way to do it, but it should work.
+
+`poc/directly-resolving-sdl`
+
+
