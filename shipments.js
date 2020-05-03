@@ -31,7 +31,20 @@ const resolvers = {
     },
     Mutation: {
         createShipment: () => { throw new Error('Ruh roh, shouldn\'t see this!') },
-        createShipment: () => { throw new Error('Ruh roh, shouldn\'t see this!') },
+        deleteShipment: () => { throw new Error('Ruh roh, shouldn\'t see this!') },
+    },
+    Query: {
+        _service: () => {
+            return { sdl: `extend type Ask @key(fields: "id") {
+                id: String @external
+                shipment: Shipment
+            }
+                type Shipment {
+                    authCenter: String
+                    shipBy: String
+                    received: Boolean
+                }` }
+        }
     }
 };
 

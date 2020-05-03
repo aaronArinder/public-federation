@@ -11,6 +11,7 @@ const gateway = process.env.NODE_ENV === 'EXTERNAL'
             { name: 'market', url: 'http://localhost:4003' },
             { name: 'asks', url: 'http://localhost:4004' },
             { name: 'shipments', url: 'http://localhost:4005' },
+            // secrets not included
         ],
     })
     : new ApolloGateway({
