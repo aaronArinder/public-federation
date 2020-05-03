@@ -11,7 +11,8 @@
     "watch:asks": "nodemon asks.js",
     "watch:shipments": "nodemon shipments.js",
     "watch:secrets": "nodemon secrets.js",
-    "watch": "concurrently -k \"yarn watch:viewer\" \"yarn watch:market\" \"yarn watch:gateway\" \"yarn watch:products\" \"yarn watch:asks\" \"yarn watch:shipments\" \"yarn watch:secrets\""
+    "watch-internal": "concurrently -k \"yarn watch:viewer\" \"yarn watch:market\" \"yarn watch:gateway\" \"yarn watch:products\" \"yarn watch:asks\" \"yarn watch:shipments\" \"yarn watch:secrets\"",
+    "watch-external": "NODE_ENV=EXTERNAL concurrently -k \"yarn watch:viewer\" \"yarn watch:market\" \"yarn watch:gateway\" \"yarn watch:products\" \"yarn watch:asks\" \"yarn watch:shipments\""
   },
   "dependencies": {
     "@apollo/federation": "^0.14.1",
