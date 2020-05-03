@@ -35,6 +35,7 @@ const resolvers = {
     }
 };
 
+// to be functionified
 if (process.env.NODE_ENV === 'EXTERNAL') {
     const PRIVATE_FIELDS = ['createShipment', 'deleteShipment'];
     typeDefs.definitions = typeDefs.definitions.filter(def => {
@@ -46,17 +47,8 @@ if (process.env.NODE_ENV === 'EXTERNAL') {
     })
 }
 
-const schema = buildFederatedSchema([{ typeDefs, resolvers }])
-
-//const schemaDirectives = {
-//    private: PrivateDirective,
-//    uppercase: UpperCaseDirective,
-//}
-//
-//SchemaDirectiveVisitor.visitSchemaDirectives(schema, schemaDirectives);
-
 const server = new ApolloServer({
-  schema,
+    schema: buildFederatedSchema([{ typeDefs, resolvers }])
 })
 
 server.listen(4005).then(({ url }) => {
