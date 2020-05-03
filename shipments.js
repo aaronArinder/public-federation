@@ -31,7 +31,7 @@ const resolvers = {
     },
     Mutation: {
         createShipment: () => { throw new Error('Ruh roh, shouldn\'t see this!') },
-        createShipment: () => { throw new Error('Ruh roh, shouldn\'t see this!') },
+        deleteShipment: () => { throw new Error('Ruh roh, shouldn\'t see this!') },
     }
 };
 
