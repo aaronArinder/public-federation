@@ -11,7 +11,7 @@ const typeDefs = gql`
         id: ID! @external
     }
 
-    type Ask {
+    type Ask @key(fields: "id"){
         id: String
         amount: Int
         product: Product

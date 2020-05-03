@@ -4,12 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "watch:gateway": "sleep 2 && nodemon gateway.js",
+    "watch:gateway": "sleep 4 && nodemon gateway.js",
     "watch:products": "nodemon products.js",
     "watch:market": "nodemon market.js",
     "watch:viewer": "nodemon viewer.js",
     "watch:asks": "nodemon asks.js",
-    "watch": "concurrently -k \"yarn watch:viewer\" \"yarn watch:market\" \"yarn watch:gateway\" \"yarn watch:products\" \"yarn watch:asks\""
+    "watch:shipments": "nodemon shipments.js",
+    "watch:secrets": "nodemon secrets.js",
+    "watch": "concurrently -k \"yarn watch:viewer\" \"yarn watch:market\" \"yarn watch:gateway\" \"yarn watch:products\" \"yarn watch:asks\" \"yarn watch:shipments\" \"yarn watch:secrets\""
   },
   "dependencies": {
     "@apollo/federation": "^0.14.1",

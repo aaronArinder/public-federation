@@ -10,6 +10,7 @@ const gateway = new ApolloGateway({
     { name: 'market', url: 'http://localhost:4003' },
     { name: 'asks', url: 'http://localhost:4004' },
     { name: 'shipments', url: 'http://localhost:4005' },
+    { name: 'secrets', url: 'http://localhost:4006' },
     // Define additional services here
   ],
 });

@@ -3,8 +3,13 @@ const { buildFederatedSchema } = require('@apollo/federation');
 
 const typeDefs = gql`
     extend type Ask @key(fields: "id") {
-        id: ID! @external
+        id: String @external
         shipment: Shipment
+    }
+
+    extend type Mutation {
+        createShipsment(askId: String): Shipment
+        deleteShipment(askId: String): Shipment
     }
 
     type Shipment {
@@ -24,6 +29,10 @@ const resolvers = {
     Ask: {
         shipment: (ask) => SHIPMENTS[ask.id] || null,
     },
+    Mutation: {
+        createShipment: () => { throw new Error('Ruh roh, shouldn\'t see this!') },
+        createShipment: () => { throw new Error('Ruh roh, shouldn\'t see this!') },
+    }
 };
 
 const server = new ApolloServer({
