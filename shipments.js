@@ -35,9 +35,29 @@ const resolvers = {
     }
 };
 
+if (process.env.NODE_ENV === 'EXTERNAL') {
+    const PRIVATE_FIELDS = ['createShipment', 'deleteShipment'];
+    typeDefs.definitions = typeDefs.definitions.filter(def => {
+        return def.fields && def.fields.some(field =>
+            field.name &&
+            field.name.value &&
+            !PRIVATE_FIELDS.includes(field.name.value)
+        )
+    })
+}
+
+const schema = buildFederatedSchema([{ typeDefs, resolvers }])
+
+//const schemaDirectives = {
+//    private: PrivateDirective,
+//    uppercase: UpperCaseDirective,
+//}
+//
+//SchemaDirectiveVisitor.visitSchemaDirectives(schema, schemaDirectives);
+
 const server = new ApolloServer({
-  schema: buildFederatedSchema([{ typeDefs, resolvers }]),
-});
+  schema,
+})
 
 server.listen(4005).then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
