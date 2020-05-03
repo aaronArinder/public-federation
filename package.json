@@ -8,7 +8,8 @@
     "watch:products": "nodemon products.js",
     "watch:market": "nodemon market.js",
     "watch:viewer": "nodemon viewer.js",
-    "watch": "concurrently -k \"yarn watch:viewer\" \"yarn watch:market\" \"yarn watch:gateway\" \"yarn watch:products\""
+    "watch:asks": "nodemon asks.js",
+    "watch": "concurrently -k \"yarn watch:viewer\" \"yarn watch:market\" \"yarn watch:gateway\" \"yarn watch:products\" \"yarn watch:asks\""
   },
   "dependencies": {
     "@apollo/federation": "^0.14.1",

@@ -8,6 +8,8 @@ const gateway = new ApolloGateway({
     { name: 'viewer', url: 'http://localhost:4001' },
     { name: 'products', url: 'http://localhost:4002' },
     { name: 'market', url: 'http://localhost:4003' },
+    { name: 'shipments', url: 'http://localhost:4004' },
+    { name: 'asks', url: 'http://localhost:4005' },
     // Define additional services here
   ],
 });
