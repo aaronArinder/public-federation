@@ -3,15 +3,16 @@ const { buildFederatedSchema } = require('@apollo/federation');
 const DataLoader = require('dataloader');
 
 const typeDefs = gql`
-  extend type User @key(fields: "id") {
-    id: ID! @external
-    products: [Product]
-  }
+    directive @private on FIELD_DEFINITION
+    extend type User @key(fields: "id") {
+        id: ID! @external
+        products: [Product]
+    }
 
-  type Product @key(fields: "id") {
-    id: ID!
-    name: String
-  }
+    type Product @key(fields: "id") {
+        id: ID!
+        name: String
+    }
 `;
 
 const PRODUCTS = {

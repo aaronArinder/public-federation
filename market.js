@@ -3,15 +3,17 @@ const { buildFederatedSchema } = require('@apollo/federation');
 const DataLoader = require('dataloader');
 
 const typeDefs = gql`
-  extend type Product @key(fields: "id") {
-    id: ID! @external
-    market: Market
-  }
+    directive @private on FIELD_DEFINITION
 
-  type Market {
-    lowestAsk: Float
-    highestBid: Float
-  }
+    extend type Product @key(fields: "id") {
+        id: ID! @external
+        market: Market
+    }
+
+    type Market {
+        lowestAsk: Float
+        highestBid: Float
+    }
 `;
 
 const MARKET_BY_PRODUCT = {

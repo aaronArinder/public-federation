@@ -2,14 +2,15 @@ const { ApolloServer, gql } = require('apollo-server');
 const { buildFederatedSchema } = require('@apollo/federation');
 
 const typeDefs = gql`
-  type Query {
-    viewer(id: ID!): User
-    viewers(ids: [ID!]): [User]
-  }
+    directive @private on FIELD_DEFINITION
+    type Query {
+        viewer(id: ID!): User
+        viewers(ids: [ID!]): [User]
+    }
 
-  type User @key(fields: "id") {
-    id: ID!
-  }
+    type User @key(fields: "id") {
+        id: ID!
+    }
 `;
 
 const resolvers = {
