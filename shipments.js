@@ -1,5 +1,6 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require('apollo-server');
 const { buildFederatedSchema } = require('@apollo/federation');
+const { PrivateDirective, UpperCaseDirective } = require('./directives');
 
 const typeDefs = gql`
     extend type Ask @key(fields: "id") {
@@ -8,8 +9,8 @@ const typeDefs = gql`
     }
 
     extend type Mutation {
-        createShipment(askId: String): Shipment
         deleteShipment(askId: String): Shipment
+        createShipment(askId: String): Shipment
     }
 
     type Shipment {

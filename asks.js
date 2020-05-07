@@ -2,6 +2,8 @@ const { ApolloServer, gql } = require('apollo-server');
 const { buildFederatedSchema } = require('@apollo/federation');
 
 const typeDefs = gql`
+    directive @private on FIELD_DEFINITION
+
     extend type User @key(fields: "id") {
         id: ID! @external
         asks: [ Ask ]
