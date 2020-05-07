@@ -10,7 +10,6 @@ class PrivateDirective extends SchemaDirectiveVisitor {
 
 class UpperCaseDirective extends SchemaDirectiveVisitor {
   visitFieldDefinition(field) {
-      console.log('field', field);
     const { resolve = defaultFieldResolver } = field;
     field.resolve = async function (...args) {
       const result = await resolve.apply(this, args);

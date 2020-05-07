@@ -3,13 +3,16 @@ const { buildFederatedSchema } = require('@apollo/federation');
 const { PrivateDirective, UpperCaseDirective } = require('./directives');
 
 const typeDefs = gql`
+    directive @uppercase on FIELD_DEFINITION
+    directive @private on FIELD_DEFINITION
+
     extend type Ask @key(fields: "id") {
         id: String @external
         shipment: Shipment
     }
 
     extend type Mutation {
-        deleteShipment(askId: String): Shipment
+        deleteShipment(askId: String): Shipment @private
         createShipment(askId: String): Shipment
     }
 
@@ -38,18 +41,34 @@ const resolvers = {
 
 // to be functionified
 if (process.env.NODE_ENV === 'EXTERNAL') {
-    const PRIVATE_FIELDS = ['createShipment', 'deleteShipment'];
-    typeDefs.definitions = typeDefs.definitions.filter(def => {
-        return def.fields && def.fields.some(field =>
-            field.name &&
-            field.name.value &&
-            !PRIVATE_FIELDS.includes(field.name.value)
-        )
-    })
+    typeDefs.definitions = typeDefs.definitions.map(def => {
+        if (def.fields) {
+           def.fields = def.fields.filter(field => {
+                if (field.directives && field.directives.some(directive =>
+                        directive.name
+                        && directive.name.value === 'private'
+                )) {
+                    return false;
+                } else {
+                    return true;
+                }
+            })
+        }
+        return def;
+    }).filter(def => def.fields && def.fields.length)
 }
 
+const schema = buildFederatedSchema([{ typeDefs, resolvers }]);
+const schemaDirectives = {
+    private: PrivateDirective,
+    uppercase: UpperCaseDirective
+};
+
+SchemaDirectiveVisitor.visitSchemaDirectives(schema, schemaDirectives);
+
 const server = new ApolloServer({
-    schema: buildFederatedSchema([{ typeDefs, resolvers }])
+    schema,
+    schemaDirectives
 })
 
 server.listen(4005).then(({ url }) => {
