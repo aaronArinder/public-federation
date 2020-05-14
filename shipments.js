@@ -13,7 +13,7 @@ const typeDefs = gql`
 
     extend type Mutation {
         deleteShipment(askId: String): Shipment @private
-        createShipment(askId: String): Shipment
+        createShipment(askId: String): Shipment @private
     }
 
     type Shipment {
