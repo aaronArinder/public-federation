@@ -22,7 +22,7 @@ To remove nodes, we'll  deploy only the set of federated services necessary for 
 
 To block out fields we don't want, see the branches below and their short descriptions.
 
-#### Branch: poc/modifying-ast-for-sdl
+#### Branch 1: arinder/modifying-ast-for-sdl-with-directive
 This branch filters out private document nodes from the generated AST, which means that the SDL won't have them when we push them to the registry. The big idea is to have a list of fields that shouldn't be exposed in the public api. We then use that list to modify the generated AST, removing any private-only document nodes.
 
 When running `yarn watch-external`, the shipments node no longer shows `createShipment` or `deleteShipment`, and the secrets node isn't started at all, so it's not included in the completed graph. When running `yarn watch-internal`, both the secrets node and the two mutations are usable.
